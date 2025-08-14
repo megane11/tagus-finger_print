@@ -203,3 +203,34 @@ body {
     padding: 12px;
   }
 }
+
+/* Extra controls styling */
+.controls {
+  margin: 20px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.controls button,
+.controls select,
+.controls input {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.controls button {
+  background-color: rgba(3, 3, 130, 0.943);
+  color: #fff;
+  border: none;
+}
+
+.controls button:hover {
+  background-color: #fff;
+  color: rgba(3, 3, 130, 0.943);
+  border: 1px solid rgba(3, 3, 130, 0.943);
+}
+

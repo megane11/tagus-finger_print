@@ -1,0 +1,64 @@
+* {
+  margin: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+/* Keep modal always visible */
+.modal {
+    display: block; /* Always show */
+    position: relative; /* Not fixed */
+    background: none;
+    height: auto;
+    overflow: visible;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 40px auto;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #888;
+    max-width: 400px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Form styling */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+input, select, button {
+    padding: 8px;
+    margin-top: 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    margin-top: 15px;
+    background: #004080;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #003366;
+}
+
+/* Hide close button */
+.close-button {
+    display: none;
+}
+
+h2 {
+    text-align: center;
+}

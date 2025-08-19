@@ -65,7 +65,7 @@ if ($result && $result->num_rows > 0) {
 
 <div class="controls">
   <form method="GET">
-    <label for="filterType">Filter by:</label>
+    <label for="filterType">Print for:</label>
     <select id="filterType" name="filterType">
       <option value="week" <?= ($filterType == 'week') ? 'selected' : '' ?>>Week</option>
       <option value="month" <?= ($filterType == 'month') ? 'selected' : '' ?>>Month</option>

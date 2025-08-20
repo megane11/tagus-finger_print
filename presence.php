@@ -13,18 +13,29 @@ if ($conn->connect_error) {
 
 $filterType = $_GET['filterType'] ?? '';
 $filterValue = $_GET['filterValue'] ?? '';
+$search = $_GET['search'] ?? '';
 
 $sql = "SELECT e.employee_name, e.post, p.arrival_time, p.departure_time, p.date 
         FROM presence p 
-        JOIN employees e ON p.employee_id = e.employee_id";
+        JOIN employees e ON p.employee_id = e.employee_id
+        WHERE 1=1";
 
+// Apply filters
 if ($filterType === 'week' && $filterValue) {
-    $sql .= " WHERE YEARWEEK(date, 1) = YEARWEEK('$filterValue', 1)";
+    $sql .= " AND YEARWEEK(p.date, 1) = YEARWEEK('$filterValue', 1)";
 } elseif ($filterType === 'month' && $filterValue) {
-    $sql .= " WHERE DATE_FORMAT(date, '%Y-%m') = '$filterValue'";
+    $sql .= " AND DATE_FORMAT(p.date, '%Y-%m') = '$filterValue'";
 }
 
-$sql .= " ORDER BY date DESC, arrival_time ASC";
+// Apply search
+if (!empty($search)) {
+    $safeSearch = $conn->real_escape_string($search);
+    $sql .= " AND (e.employee_name LIKE '%$safeSearch%' 
+              OR e.post LIKE '%$safeSearch%'
+              OR p.date LIKE '%$safeSearch%')";
+}
+
+$sql .= " ORDER BY p.date DESC, p.arrival_time ASC";
 $result = $conn->query($sql);
 
 // Group data by date
@@ -53,8 +64,9 @@ if ($result && $result->num_rows > 0) {
   </div>
   <div class="list">
     <img class="print-icon" src="assets/images/print-icon.svg" alt="Print" id="printTable">
-    <form class="search-form" role="search">
-      <input class="search-input" type="search" placeholder="Search" aria-label="Search" />
+    <!-- Updated form to send GET param 'search' -->
+    <form class="search-form" role="search" method="GET">
+      <input class="search-input" type="search" name="search" value="<?= htmlspecialchars($search) ?>" placeholder="Search by name, post, date" aria-label="Search" />
       <button class="search-submit" type="submit">
         <span class="search-text">Search</span>
         <img class="search-icon" src="assets/images/search-icon.svg" alt="Search Icon">
